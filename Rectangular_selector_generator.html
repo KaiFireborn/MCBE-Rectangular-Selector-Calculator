@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<link rel='shortcut icon' type='image/x-icon' href='https://bit.ly/2SpiAn7' />
+
+<body>
+
+	<head>
+		<link rel="stylesheet" href="styles.css" />
+
+		<div class="minecraft-container" style="width:50%;margin-top:30vh;">
+			<div style="text-align:center;">Rectangular Selector Generator by Kai</div>
+			<div class="minecraft-container-dark-font">
+				<div class="row">
+					<div class="column">
+						<div class="row">
+							<br />&nbsp;&nbsp;x1:&nbsp; <input class="minecraft-input" type="text" id="inp_x_1"><br />
+							&nbsp;&nbsp;x2:&nbsp; <input class="minecraft-input" type="text" id="inp_x_2">
+						</div><br />
+						<div class="row">
+							<br />&nbsp;&nbsp;y1:&nbsp; <input class="minecraft-input" type="text" id="inp_y_1"><br />
+							&nbsp;&nbsp;y2:&nbsp; <input class="minecraft-input" type="text" id="inp_y_2">
+						</div><br />
+						<div class="row">
+							<br />&nbsp;&nbsp;z1:&nbsp; <input class="minecraft-input" type="text" id="inp_z_1"><br />
+							&nbsp;&nbsp;z2:&nbsp; <input class="minecraft-input" type="text" id="inp_z_2">
+						</div>
+					</div>
+					<div class=colum>
+						&nbsp; &nbsp; &nbsp;
+					</div>
+					<div class=column>
+						<img src='https://bit.ly/2SpiAn7' class=img width=150 height=150>
+					</div>
+				</div>
+
+			</div><br />
+			Include []?<input type="checkbox" id="withBrackets"> <br />
+			<input class="button" type="button" id="calculateButton" onclick="calculate()"
+				value="Calculate"><br /><br />
+			Selector:&nbsp;&nbsp; <input class="minecraft-input-long" type="text" id="outp"><br />
+			<input type="button" class="button" id="clipboardButton" onclick="toClipboard()"
+				value="Copy to Clipboard"><br />
+		</div>
+	</head>
+
+	<script>
+		var withBrackets = false;
+
+
+		function toClipboard() {
+			var copyText = document.getElementById("outp");
+			copyText.select();
+			copyText.setSelectionRange(0, 99999)
+			document.execCommand("copy");
+			document.getElementById("clipboardButton").value = "Copied!";
+		};
+
+
+		var calculate = function () {
+
+			//get values
+			var in_x_1 = document.getElementById("inp_x_1").value;
+
+			var in_x_2 = document.getElementById("inp_x_2").value;
+
+
+			var in_y_1 = document.getElementById("inp_y_1").value;
+			var in_y_2 = document.getElementById("inp_y_2").value;
+
+			var in_z_1 = document.getElementById("inp_z_1").value;
+			var in_z_2 = document.getElementById("inp_z_2").value;
+
+
+			//compare
+			var x_max = Math.max(in_x_1, in_x_2);
+			var y_max = Math.max(in_y_1, in_y_2);
+			var z_max = Math.max(in_z_1, in_z_2);
+
+			var x_min = Math.min(in_x_1, in_x_2);
+			var y_min = Math.min(in_y_1, in_y_2);
+			var z_min = Math.min(in_z_1, in_z_2);
+
+
+			//calculate
+			var out_dx = x_max - x_min;
+			var out_dy = y_max - y_min;
+			var out_dz = z_max - z_min;
+
+			var checkBox = document.getElementById("withBrackets");
+
+			if (checkBox.checked == true) {
+				var out_selector = `[x=${x_min},y=${y_min},z=${z_min},dx=${out_dx},dy=${out_dy},dz=${out_dz}]`;
+			} else {
+				var out_selector = `x=${x_min},y=${y_min},z=${z_min},dx=${out_dx},dy=${out_dy},dz=${out_dz}`;
+			};
+
+			document.getElementById("outp").value = out_selector;
+			if (x_max != null && y_max != null && z_max != null && x_min != null && y_min != null && z_min != null) {
+				document.getElementById("calculateButton").value = "Calculated!";
+			};
+		};
+
+
+
+	</script>
+</body>
+
+</html>
+</DOCTYPE html>
